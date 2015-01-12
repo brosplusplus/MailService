@@ -33,19 +33,4 @@ public class Sender {
 		trans.close();
 		System.out.println("Sended");
 	}
-
-	public static void main(String args[])
-	{
-		Sender s = new Sender();
-		try {
-			String dests[] = {"alaxmo13@gmail.com","borja.arias.upc@gmail.com"};
-			s.SendMail(dests, "WASAAAABI", "Hola puta, que tal et sembla això?");
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }
