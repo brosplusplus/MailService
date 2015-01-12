@@ -11,13 +11,20 @@ import javax.mail.internet.MimeMessage;
 
 public class Sender {
 
-	public void SendMail(String dest, String subj, String body) throws AddressException, MessagingException {
+	public void SendMail(String[] dest, String subj, String body) throws AddressException, MessagingException {
 		// TODO Auto-generated method stub
 		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "localhost");
 		Session session = Session.getDefaultInstance(prop, null);
 		MimeMessage msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("borja@brosplusplus.com"));
-		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(dest));
+		msg.setFrom(new InternetAddress("borja@mongamonga.es"));
+		for (String to : dest) {
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		}
+		msg.setHeader("MIME-Version", "1.0");
+		msg.setHeader("Content-type", "text/html; charset=iso-8859-1");
+		msg.setHeader("From", "Bros++ <borja@mongamonga.es>");
+		msg.setHeader("Reply-To:", "borja.arias.upc@gmail.com");
 		msg.setSubject(subj);
 		msg.setText(body);
 		Transport trans = session.getTransport("smtp");
@@ -31,7 +38,8 @@ public class Sender {
 	{
 		Sender s = new Sender();
 		try {
-			s.SendMail("borja.arias.upc@gmail.com", "prueba", "body de la prueba");
+			String dests[] = {"alaxmo13@gmail.com","borja.arias.upc@gmail.com"};
+			s.SendMail(dests, "WASAAAABI", "Hola puta, que tal et sembla això?");
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
